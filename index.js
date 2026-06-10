@@ -14,13 +14,29 @@ const contactMessageRoutes = require("./routes/contactMessageRoutes");
 const likedArtworkRoutes = require("./routes/likedArtworkRoutes");
 const reviewRoutes = require("./routes/reviewRoutes");
 const cartRoutes = require("./routes/cartRoutes");
-const orderRoutes=require("./routes/orderRoutes");
+const orderRoutes = require("./routes/orderRoutes");
 
 connectDB();
 
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://localhost:5173",
+  "https://artify-nine.vercel.app",
+];
+
+
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(new Error("Not allowed by CORS"));
+    },
     credentials: true,
   })
 );
@@ -36,8 +52,8 @@ app.use("/api/users", userRoutes);
 app.use("/api/contact-messages", contactMessageRoutes);
 app.use("/api/liked-artworks", likedArtworkRoutes);
 app.use("/api/reviews", reviewRoutes);
-app.use("/api/cart",cartRoutes);
-app.use("/api/orders",orderRoutes);
+app.use("/api/cart", cartRoutes);
+app.use("/api/orders", orderRoutes);
 
 const PORT = process.env.PORT || 5000;
 
