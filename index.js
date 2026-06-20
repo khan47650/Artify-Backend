@@ -21,7 +21,8 @@ connectDB();
 const allowedOrigins = [
   "http://localhost:3000",
   "http://localhost:5173",
-  "https://artify-nine.vercel.app",
+  "https://mowagallery.com",
+  "https://www.mowagallery.com",
 ];
 
 
