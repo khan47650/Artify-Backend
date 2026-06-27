@@ -51,20 +51,20 @@ exports.replyMessage = async (req, res) => {
 
         const emailSent = await sendEmail(
             message.email,
-            `Reply from Artify: ${message.subject}`,
+            `Reply from Mowa Gallery: ${message.subject}`,
             `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">Artify Support Reply</h1>
-          <p>Hi ${message.name || "there"},</p>
-          <p>${reply}</p>
-          <hr style="margin:24px 0;border:none;border-top:1px solid #eee;" />
-          <p style="font-size:13px;color:#666;">Your original message:</p>
-          <p style="font-size:13px;color:#333;">${message.message}</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
-      </div>
-      `
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">Mowa Gallery Support Reply</h1>
+      <p>Hi ${message.name || "there"},</p>
+      <p>${reply}</p>
+      <hr style="margin:24px 0;border:none;border-top:1px solid #eee;" />
+      <p style="font-size:13px;color:#666;">Your original message:</p>
+      <p style="font-size:13px;color:#333;">${message.message}</p>
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
         );
 
         if (!emailSent) {

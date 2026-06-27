@@ -5,7 +5,7 @@ const User = require("../models/User");
 
 exports.addArtwork = async (req, res) => {
     try {
-        const { image, name, userId, description, price, category, quantity } = req.body;
+        const { image, name, userId, description, price, category, quantity, medium, subject, style, size, orientation, availability, color } = req.body;
 
         if (!image || !name || !userId || !description || !price || !category || quantity === undefined) {
             return res.status(400).json({ message: "All fields are required" });
@@ -22,6 +22,13 @@ exports.addArtwork = async (req, res) => {
             description,
             price,
             category,
+            medium: medium || "",
+            subject: subject || "",
+            style: style || "",
+            size: size || "",
+            orientation: orientation || "",
+            availability: availability || "",
+            color: color || "",
             quantity: Number(quantity),
             sellingStatus: Number(quantity) > 0 ? "pending" : "sold",
         });
@@ -85,7 +92,7 @@ exports.getCurrentUserArtworks = async (req, res) => {
 exports.updateArtwork = async (req, res) => {
     try {
         const { id } = req.params;
-        const { image, name, description, price, category, quantity } = req.body;
+        const { image, name, description, price, category, quantity, medium, subject, style, size, orientation, availability, color } = req.body;
 
         const artwork = await Artwork.findById(id);
 
@@ -111,6 +118,14 @@ exports.updateArtwork = async (req, res) => {
             artwork.quantity = Number(quantity);
             artwork.sellingStatus = Number(quantity) > 0 ? "pending" : "sold";
         }
+
+        artwork.medium = medium ?? artwork.medium;
+        artwork.subject = subject ?? artwork.subject;
+        artwork.style = style ?? artwork.style;
+        artwork.size = size ?? artwork.size;
+        artwork.orientation = orientation ?? artwork.orientation;
+        artwork.availability = availability ?? artwork.availability;
+        artwork.color = color ?? artwork.color;
 
         await artwork.save();
 

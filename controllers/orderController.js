@@ -103,15 +103,15 @@ exports.placeOrder = async (req, res) => {
                     sellerData.seller.email,
                     "New Artwork Order Received",
                     `
-          <div style="font-family:sans-serif;">
-            <h2>New Artwork Order</h2>
-            <p>Your artwork(s) received a new order:</p>
-            <p><b>${sellerArtworkNames}</b></p>
-            <p>Please wait for admin confirmation.</p>
-            <br />
-            <p>Artify Marketplace</p>
-          </div>
-          `
+    <div style="font-family:sans-serif;">
+      <h2>New Artwork Order</h2>
+      <p>Your artwork(s) received a new order:</p>
+      <p><b>${sellerArtworkNames}</b></p>
+      <p>Please wait for admin confirmation.</p>
+      <br />
+      <p>Mowa Gallery Marketplace</p>
+    </div>
+    `
                 );
             }
         }
@@ -119,18 +119,18 @@ exports.placeOrder = async (req, res) => {
         if (buyer?.email) {
             await sendEmail(
                 buyer.email,
-                "Artify Order Placed",
+                "Mowa Gallery Order Placed",
                 `
-        <div style="font-family:sans-serif;">
-          <h2>Order Placed Successfully</h2>
-          <p>Your order has been placed for:</p>
-          <p><b>${artworkNames}</b></p>
-          <p>Payment Method: <b>${paymentMethod}</b></p>
-          <p>Our admin team will review and confirm your order shortly.</p>
-          <br />
-          <p>Thank you for using Artify.</p>
-        </div>
-        `
+    <div style="font-family:sans-serif;">
+      <h2>Order Placed Successfully</h2>
+      <p>Your order has been placed for:</p>
+      <p><b>${artworkNames}</b></p>
+      <p>Payment Method: <b>${paymentMethod}</b></p>
+      <p>Our admin team will review and confirm your order shortly.</p>
+      <br />
+      <p>Thank you for using Mowa Gallery.</p>
+    </div>
+    `
             );
         }
 
@@ -211,16 +211,16 @@ exports.confirmOrder = async (req, res) => {
         if (order.buyerId?.email) {
             await sendEmail(
                 order.buyerId.email,
-                "Artify Order Confirmed",
+                "Mowa Gallery Order Confirmed",
                 `
-        <div style="font-family:sans-serif;">
-          <h2>Your Order Has Been Confirmed</h2>
-          <p>Your order has been confirmed for:</p>
-          <p><b>${artworkNames}</b></p>
-          <br />
-          <p>Thank you for shopping with Artify.</p>
-        </div>
-        `
+    <div style="font-family:sans-serif;">
+      <h2>Your Order Has Been Confirmed</h2>
+      <p>Your order has been confirmed for:</p>
+      <p><b>${artworkNames}</b></p>
+      <br />
+      <p>Thank you for shopping with Mowa Gallery.</p>
+    </div>
+    `
             );
         }
 
@@ -255,14 +255,14 @@ exports.confirmOrder = async (req, res) => {
                     sellerData.seller.email,
                     "Artwork Sold Successfully",
                     `
-          <div style="font-family:sans-serif;">
-            <h2>Artwork Sold</h2>
-            <p>Your artwork(s) have been confirmed as sold:</p>
-            <p><b>${names}</b></p>
-            <br />
-            <p>Artify Marketplace</p>
-          </div>
-          `
+    <div style="font-family:sans-serif;">
+      <h2>Artwork Sold</h2>
+      <p>Your artwork(s) have been confirmed as sold:</p>
+      <p><b>${names}</b></p>
+      <br />
+      <p>Mowa Gallery Marketplace</p>
+    </div>
+    `
                 );
             }
         }
@@ -346,17 +346,17 @@ exports.cancelOrder = async (req, res) => {
         if (order.buyerId?.email) {
             await sendEmail(
                 order.buyerId.email,
-                "Artify Order Cancelled",
+                "Mowa Gallery Order Cancelled",
                 `
-        <div style="font-family:sans-serif;">
-          <h2>Order Cancelled</h2>
-          <p>Your order has been cancelled for:</p>
-          <p><b>${artworkNames}</b></p>
-          <p>If payment was already processed, please contact support.</p>
-          <br />
-          <p>Artify Marketplace</p>
-        </div>
-        `
+    <div style="font-family:sans-serif;">
+      <h2>Order Cancelled</h2>
+      <p>Your order has been cancelled for:</p>
+      <p><b>${artworkNames}</b></p>
+      <p>If payment was already processed, please contact support.</p>
+      <br />
+      <p>Mowa Gallery Marketplace</p>
+    </div>
+    `
             );
         }
 
@@ -391,14 +391,14 @@ exports.cancelOrder = async (req, res) => {
                     sellerData.seller.email,
                     "Artwork Order Cancelled",
                     `
-          <div style="font-family:sans-serif;">
-            <h2>Order Cancelled</h2>
-            <p>The order for your artwork(s) has been cancelled:</p>
-            <p><b>${names}</b></p>
-            <br />
-            <p>Artify Marketplace</p>
-          </div>
-          `
+    <div style="font-family:sans-serif;">
+      <h2>Order Cancelled</h2>
+      <p>The order for your artwork(s) has been cancelled:</p>
+      <p><b>${names}</b></p>
+      <br />
+      <p>Mowa Gallery Marketplace</p>
+    </div>
+    `
                 );
             }
         }

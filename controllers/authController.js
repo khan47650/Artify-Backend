@@ -113,18 +113,18 @@ exports.signup = async (req, res) => {
 
     await sendEmail(
       normalizedEmail,
-      "Welcome to Artify",
+      "Welcome to Mowa Gallery",
       `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">Welcome to Artify 🎨</h1>
-          <p>Hi ${firstName || "there"},</p>
-          <p>Your Artify account has been created successfully.</p>
-          <p>You can now discover, collect, and sell digital artworks on Artify.</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
-      </div>
-      `
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">Welcome to Mowa Gallery 🎨</h1>
+      <p>Hi ${firstName || "there"},</p>
+      <p>Your Mowa Gallery account has been created successfully.</p>
+      <p>You can now discover, collect, and sell digital artworks on Mowa Gallery.</p>
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
     );
 
     const token = generateToken(user);
@@ -161,19 +161,19 @@ exports.login = async (req, res) => {
     }
     await sendEmail(
       normalizedEmail,
-      "New Login on Artify",
+      "New Login on Mowa Gallery",
       `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">Login Alert</h1>
-          <p>Hi ${user.firstName || "there"},</p>
-          <p>Your account was just logged in on <strong>Artify</strong>.</p>
-          <p>If this was you, no action is needed.</p>
-          <p>If this was not you, please change your password immediately.</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
-      </div>
-      `
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">Login Alert</h1>
+      <p>Hi ${user.firstName || "there"},</p>
+      <p>Your account was just logged in on <strong>Mowa Gallery</strong>.</p>
+      <p>If this was you, no action is needed.</p>
+      <p>If this was not you, please change your password immediately.</p>
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
     );
 
     const token = generateToken(user);
@@ -210,22 +210,22 @@ exports.forgotPassword = async (req, res) => {
 
     const emailSent = await sendEmail(
       normalizedEmail,
-      "Your New Artify Password",
+      "Your New Mowa Gallery Password",
       `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">Password Reset</h1>
-          <p>Hi ${user.firstName || "there"},</p>
-          <p>Your Artify password has been reset successfully.</p>
-          <p>Your new password is:</p>
-          <div style="font-size:22px;font-weight:bold;background:#f1f1f1;padding:14px;border-radius:10px;text-align:center;letter-spacing:1px;">
-            ${newPassword}
-          </div>
-          <p>Please login using this password.</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">Password Reset</h1>
+      <p>Hi ${user.firstName || "there"},</p>
+      <p>Your Mowa Gallery password has been reset successfully.</p>
+      <p>Your new password is:</p>
+      <div style="font-size:22px;font-weight:bold;background:#f1f1f1;padding:14px;border-radius:10px;text-align:center;letter-spacing:1px;">
+        ${newPassword}
       </div>
-      `
+      <p>Please login using this password.</p>
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
     );
 
     if (!emailSent) {
@@ -313,22 +313,73 @@ exports.changePassword = async (req, res) => {
 
     await sendEmail(
       user.email,
-      "Artify Password Updated",
+      "Mowa Gallery Password Updated",
       `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">Password Updated</h1>
-          <p>Hi ${user.firstName || "there"},</p>
-          <p>Your Artify account password has been updated successfully.</p>
-          <p>If this was not you, please contact support immediately.</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
-      </div>
-      `
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">Password Updated</h1>
+      <p>Hi ${user.firstName || "there"},</p>
+      <p>Your Mowa Gallery account password has been updated successfully.</p>
+      <p>If this was not you, please contact support immediately.</p>
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
     );
 
     res.json({ message: "Password updated successfully" });
   } catch (error) {
     res.status(500).json({ message: "Password update failed", error: error.message });
+  }
+};
+
+exports.googleLogin = async (req, res) => {
+  try {
+    const { email, firstName, lastName, artistPhoto } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ message: "Email is required" });
+    }
+
+    const normalizedEmail = email.toLowerCase();
+    let user = await User.findOne({ email: normalizedEmail });
+
+    if (user && user.role === "seller") {
+      return res.status(403).json({
+        message: "This email is already registered as a seller.",
+      });
+    }
+
+    if (!user) {
+      user = await User.create({
+        role: "buyer",
+        accountStatus: "active",
+        firstName: firstName || "",
+        lastName: lastName || "",
+        email: normalizedEmail,
+        password: "google-oauth-" + Math.random().toString(36).slice(-8),
+        artistPhoto: artistPhoto || "",
+      });
+
+      await sendEmail(
+        normalizedEmail,
+        "Welcome to Mowa Gallery",
+        `
+        <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+          <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+            <h1 style="color:#111;">Welcome to Mowa Gallery 🎨</h1>
+            <p>Hi ${firstName || "there"},</p>
+            <p>Your Mowa Gallery account has been created successfully via Google.</p>
+            <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+          </div>
+        </div>
+        `
+      );
+    }
+
+    const token = generateToken(user);
+    res.json({ message: "Google login successful", token, user: buildUserResponse(user) });
+  } catch (error) {
+    res.status(500).json({ message: "Google login failed", error: error.message });
   }
 };

@@ -49,28 +49,28 @@ exports.updateSellerStatus = async (req, res) => {
     await Activity.create({
       title: isFreeze ? "Account Frozen" : "Account Unfrozen",
       description: isFreeze
-        ? "Your Artify seller account has been frozen by admin."
-        : "Your Artify seller account has been restored and is active again.",
+        ? "Your Mowa Gallery seller account has been frozen by admin."
+        : "Your Mowa Gallery seller account has been restored and is active again.",
       userId: seller._id,
       type: "account",
     });
 
     await sendEmail(
       seller.email,
-      isFreeze ? "Your Artify Account Has Been Frozen" : "Your Artify Account Has Been Unfrozen",
+      isFreeze ? "Your Mowa Gallery Account Has Been Frozen" : "Your Mowa Gallery Account Has Been Unfrozen",
       `
-      <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
-        <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
-          <h1 style="color:#111;">${isFreeze ? "Account Frozen" : "Account Unfrozen"}</h1>
-          <p>Hi ${seller.firstName || "there"},</p>
-          <p>${isFreeze
-        ? "Your seller account has been frozen by Artify admin."
+  <div style="font-family:Arial,sans-serif;background:#f7f7f7;padding:30px;">
+    <div style="max-width:600px;margin:auto;background:#ffffff;border-radius:14px;padding:28px;">
+      <h1 style="color:#111;">${isFreeze ? "Account Frozen" : "Account Unfrozen"}</h1>
+      <p>Hi ${seller.firstName || "there"},</p>
+      <p>${isFreeze
+        ? "Your seller account has been frozen by Mowa Gallery admin."
         : "Your seller account has been unfrozen and is active again."
       }</p>
-          <p style="margin-top:24px;">Regards,<br/><strong>Artify Team</strong></p>
-        </div>
-      </div>
-      `
+      <p style="margin-top:24px;">Regards,<br/><strong>Mowa Gallery Team</strong></p>
+    </div>
+  </div>
+  `
     );
 
     res.json({

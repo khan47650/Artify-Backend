@@ -8,6 +8,13 @@ const artworkSchema = new mongoose.Schema(
     description: { type: String, required: true },
     price: { type: Number, required: true },
     category: { type: String, required: true },
+    medium: { type: String, default: "" },
+    subject: { type: String, default: "" },
+    style: { type: String, default: "" },
+    size: { type: String, default: "" },
+    orientation: { type: String, default: "" },
+    availability: { type: String, default: "" },
+    color: { type: String, default: "" },
     quantity: {
       type: Number,
       required: true,
