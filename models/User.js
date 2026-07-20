@@ -4,33 +4,82 @@ const userSchema = new mongoose.Schema(
   {
     role: {
       type: String,
-      enum: ["buyer", "seller"],
-      default: "buyer",
+      enum: ["user", "admin"],
+      default: "user",
     },
-    firstName: String,
-    lastName: String,
-    phoneNumber: String,
-    addressLine1: String,
-    addressLine2: String,
-    city: String,
-    state: String,
-    postalCode: String,
-    country: String,
-    artistPhoto: String,
-    introduction: {
+
+    firstName: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    lastName: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    phoneNumber: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    addressLine1: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    addressLine2: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    city: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    state: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    postalCode: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    country: {
+      type: String,
+      default: "",
+      trim: true,
+    },
+
+    artistPhoto: {
       type: String,
       default: "",
     },
+
     email: {
       type: String,
       required: true,
       unique: true,
       lowercase: true,
       trim: true,
+      index: true,
     },
+
     password: {
       type: String,
       required: true,
+      select: false,
     },
 
     accountStatus: {
@@ -38,10 +87,11 @@ const userSchema = new mongoose.Schema(
       enum: ["active", "freeze"],
       default: "active",
     },
-
   },
-
-  { timestamps: true, collection: "Users" }
+  {
+    timestamps: true,
+    collection: "Users",
+  }
 );
 
 module.exports = mongoose.model("User", userSchema);

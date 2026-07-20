@@ -14,7 +14,18 @@ exports.placeOrder = async (req, res) => {
             return res.status(400).json({ message: "All fields are required" });
         }
 
-        const buyer = await User.findById(buyerId);
+        const buyer = await User.findOne({
+            _id: buyerId,
+            role: "user",
+            accountStatus: "active",
+        });
+
+        if (!buyer) {
+            return res.status(403).json({
+                message:
+                    "Active user account is required to place an order",
+            });
+        }
 
         const cartItems = await Cart.find({ userId: buyerId }).populate({
             path: "artworkId",
@@ -26,6 +37,27 @@ exports.placeOrder = async (req, res) => {
 
         if (cartItems.length === 0) {
             return res.status(400).json({ message: "Cart is empty" });
+        }
+
+        const containsOwnArtwork = cartItems.some(
+            (item) => {
+                const artworkOwnerId =
+                    item.artworkId?.userId?._id ||
+                    item.artworkId?.userId;
+
+                return (
+                    artworkOwnerId &&
+                    String(artworkOwnerId) ===
+                    String(buyerId)
+                );
+            }
+        );
+
+        if (containsOwnArtwork) {
+            return res.status(403).json({
+                message:
+                    "You cannot purchase your own artwork",
+            });
         }
 
         const validItems = cartItems.filter((item) => {
@@ -281,29 +313,33 @@ exports.confirmOrder = async (req, res) => {
 
 exports.getUserPendingOrders = async (req, res) => {
     try {
-        const { userId, role } = req.params;
+        const { userId } = req.params;
 
-        let query = {
+        const orders = await Order.find({
+            buyerId: userId,
             orderStatus: "pending",
-        };
+        })
+            .populate(
+                "buyerId",
+                "firstName lastName email"
+            )
+            .populate(
+                "artworks.sellerId",
+                "firstName lastName email"
+            )
+            .populate(
+                "artworks.artworkId",
+                "name image price category quantity"
+            )
+            .sort({
+                createdAt: -1,
+            });
 
-        if (role === "buyer") {
-            query.buyerId = userId;
-        }
-
-        if (role === "seller") {
-            query["artworks.sellerId"] = userId;
-        }
-
-        const orders = await Order.find(query)
-            .populate("buyerId", "firstName lastName email")
-            .populate("artworks.sellerId", "firstName lastName email")
-            .populate("artworks.artworkId", "name image price category,quantity")
-            .sort({ createdAt: -1 });
-
-        res.json({ orders });
+        return res.json({
+            orders,
+        });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Pending orders fetch failed",
             error: error.message,
         });
@@ -416,29 +452,38 @@ exports.cancelOrder = async (req, res) => {
     }
 };
 
-exports.getUserConfirmedOrders = async (req, res) => {
+exports.getUserConfirmedOrders = async (
+    req,
+    res
+) => {
     try {
-        const { userId, role } = req.params;
+        const { userId } = req.params;
 
-        const query = { orderStatus: "confirmed" };
+        const orders = await Order.find({
+            buyerId: userId,
+            orderStatus: "confirmed",
+        })
+            .populate(
+                "buyerId",
+                "firstName lastName email"
+            )
+            .populate(
+                "artworks.sellerId",
+                "firstName lastName email"
+            )
+            .populate(
+                "artworks.artworkId",
+                "name image price category quantity"
+            )
+            .sort({
+                updatedAt: -1,
+            });
 
-        if (role === "buyer") {
-            query.buyerId = userId;
-        }
-
-        if (role === "seller") {
-            query["artworks.sellerId"] = userId;
-        }
-
-        const orders = await Order.find(query)
-            .populate("buyerId", "firstName lastName email")
-            .populate("artworks.sellerId", "firstName lastName email")
-            .populate("artworks.artworkId", "name image price category,quantity")
-            .sort({ updatedAt: -1 });
-
-        res.json({ orders });
+        return res.json({
+            orders,
+        });
     } catch (error) {
-        res.status(500).json({
+        return res.status(500).json({
             message: "Confirmed orders fetch failed",
             error: error.message,
         });

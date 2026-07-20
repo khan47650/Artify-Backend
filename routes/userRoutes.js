@@ -1,16 +1,21 @@
 const express = require("express");
+
 const {
-  getAllSellers,
-  updateSellerStatus,
-  getSellerArtworks,
-  getSellerById,
+  getAllUsers,
+  getAllArtists,
+  updateUserStatus,
+  getUserArtworks,
+  getUserById,
 } = require("../controllers/userController");
 
 const router = express.Router();
 
-router.get("/sellers", getAllSellers);
-router.put("/seller-status/:id", updateSellerStatus);
-router.get("/seller-artworks/:id", getSellerArtworks);
-router.get("/seller/:id", getSellerById);
+router.get("/users", getAllUsers);
+router.get("/artists", getAllArtists);
+
+router.put("/status/:id", updateUserStatus);
+
+router.get("/:id/artworks", getUserArtworks);
+router.get("/:id", getUserById);
 
 module.exports = router;
