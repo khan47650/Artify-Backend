@@ -59,7 +59,10 @@ exports.getAllArtworks = async (req, res) => {
         const total = await Artwork.countDocuments(filter);
 
         const artworks = await Artwork.find(filter)
-            .populate("userId", "firstName lastName email accountStatus")
+            .populate(
+                "userId",
+                "firstName lastName email phoneNumber accountStatus"
+            )
             .sort({ createdAt: -1 })
             .skip(skip)
             .limit(limit);
